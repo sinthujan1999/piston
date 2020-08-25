@@ -8,9 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import img from "/home/sinthujan/Desktop/piston_team/src/Piston/white-wallpaper-11.jpg";
-import TextField from '@material-ui/core/TextField';
-
-
 
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
@@ -51,17 +48,27 @@ export default function ChangePassword() {
   const [values, setValues] = React.useState({
    
     password: '',
-    showPassword: false,
+    showPass:false,
+    
+    
   });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  const handleClickShowoldPassword = () => {
+  setValues({ ...values, showoldPassword: !values.showoldPassword });
   };
 
+  const handleClickShownewPassword = () => {
+    setValues({ ...values, shownewPassword: !values.shownewPassword 
+    });
+  }
+  const handleClickShowretypePassword = () => {
+    setValues({ ...values, showretypePassword: !values.showretypePassword 
+    });
+  }
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -73,25 +80,28 @@ export default function ChangePassword() {
         <img src= {img} alt="Logo" height="5%" width="20%" /> 
         </CardMedia>
         <CardContent>
+
           <Typography gutterBottom variant="h5" component="h2">
             Change Your Password
           </Typography>
+
           <Typography variant="body2" color="textSecondary" component="p">
           <FormControl className={clsx(classes.margin, classes.textField)} >
-          <InputLabel  htmlFor="standard-adornment-password"> Old Password</InputLabel>
+          <InputLabel  htmlFor="oldpassword"> Old Password</InputLabel>
           <Input
-            id="standard-adornment-password"
-            type={values.showPassword ? 'string' : 'password'}
-            value={values.password}
+            id="oldpassword"
+            type={values.showoldPassword ? 'string' : 'password'}
+            value={values.showoldPass}
             onChange={handleChange('password')}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
+                id="oldpassword"
                   aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
+                  onClick={handleClickShowoldPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {values.showoldPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
@@ -101,20 +111,20 @@ export default function ChangePassword() {
         </FormControl>
 
         <FormControl className={clsx(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="standard-adornment-password"> New Password</InputLabel>
+          <InputLabel htmlFor="Newpassword"> New Password</InputLabel>
           <Input
-            id="standard-adornment-password"
-            type={values.showPassword ? 'Number' : 'password'}
-            value={values.password}
+            id="Newpassword"
+            type={values.shownewPassword? 'string' : 'password'}
+            value={values.shownewPass}
             onChange={handleChange('password')}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
+                  aria-label="toggle password"
+                  onClick={handleClickShownewPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {values.shownewPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
@@ -124,20 +134,21 @@ export default function ChangePassword() {
         </FormControl>
 
 <FormControl className={clsx(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="standard-adornment-password"> Re-Type Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
-            type={values.showPassword ? 'Number' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
+<InputLabel htmlFor="retype-password"> Re-Type Password</InputLabel>
+<Input
+  id="retype-password"
+  type={values.showretypePassword ? 'string' : 'password'}
+  value={values.showoldPass}
+  onChange={handleChange('password')}
+  endAdornment={
+    <InputAdornment position="end">
+    <IconButton
+    id="retype-password"
+    aria-label="toggle password visibility"
+    onClick={handleClickShowretypePassword}
+    onMouseDown={handleMouseDownPassword}
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {values.showretypePassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }

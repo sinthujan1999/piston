@@ -75,7 +75,7 @@ export default function EditProfile() {
       </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
-            Add Card
+            Edit Profile
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
           <form className={classes.root} noValidate autoComplete="off" style={{lineHeight:5}}>
@@ -117,9 +117,11 @@ required
       </CardActionArea>
       <CardActions>
         <Button variant="contained"size="small" color="primary">
+          Edit
+        </Button>
+        <Button variant="contained"size="small" color="primary">
           Save
         </Button>
-      
      
       </CardActions>
     </Card>
