@@ -1,0 +1,122 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import OutlinedButtons from './UploadPhoto';
+import EditProfile from './EditProfile';
+import ChangePassword from './changePassword';
+import Snackbar from '@material-ui/core/Snackbar';
+import Fade from '@material-ui/core/Fade';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  backButton: {
+    marginLeft: theme.spacing(1),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+function getSteps() {
+  return ['Profile Upload', 'Edit Detail', 'Edit Password'];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0:
+      return <OutlinedButtons/>;
+    case 1:
+      return <EditProfile/>;
+    case 2:
+      return <ChangePassword/>;
+    default:
+      return 'Unknown stepIndex';
+  }
+}
+
+export default function HorizontalLabelPositionBelowStepper() {
+  const classes = useStyles();
+  const steps = getSteps();
+  const [activeStep, setActiveStep] = React.useState(0);
+   const [state, setState] = React.useState({
+    open: false,
+    Transition: Fade,
+  });
+
+  const handleNext = (Transition) => () => { 
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setState({
+      open: true,
+      Transition: Fade,
+    });
+  };
+  
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
+
+  return (
+    <div className={classes.root}>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        {activeStep === steps.length ? (
+          <div>
+            <Typography className={classes.instructions}><Snackbar
+        open={state.open}
+        onClose={handleClose}
+        TransitionComponent={state.Transition}
+        message="Sucessfull"
+        key={state.Transition.name}
+      /></Typography>
+            <Button onClick={handleReset} variant="contained" color="primary"> Reset</Button>
+          </div>
+        ) : (
+          <div>
+            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Back
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleNext()}>
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+              
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
